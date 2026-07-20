@@ -1,0 +1,28 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.dimensionlabs.io/reference/generating-dashbot-api-key + openapi/dashbot-export-openapi.json
+docs: https://docs.dimensionlabs.io/reference/generating-dashbot-api-key
+summary:
+  types: [apiKey]
+  api_key_in: [header, query]
+  oauth2_flows: []
+schemes:
+- name: AuthorizationHeader
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: >-
+    API key passed in the Authorization header on the Export API
+    (GET https://api.dimensionlabs.io/export). Keys are generated per
+    integration/source in the Dimension Labs app (Integrations > Add Source >
+    Show Integration Instructions).
+  sources: [openapi/dashbot-export-openapi.json]
+- name: TrackerApiKey
+  type: apiKey
+  in: query
+  parameter: apiKey
+  description: >-
+    API key supplied with realtime ingest calls to the Universal tracker
+    endpoint (https://tracker.dimensionlabs.io/track?platform=universal). Each
+    integration source has its own key generated in the Dimension Labs app.
+  sources: [https://docs.dimensionlabs.io/reference/rest-api]
