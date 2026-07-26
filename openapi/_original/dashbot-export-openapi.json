@@ -1,0 +1,106 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Export API"
+  },
+  "servers": [
+    {
+      "url": "https://api.dimensionlabs.io"
+    }
+  ],
+  "paths": {
+    "/export": {
+      "get": {
+        "description": "",
+        "operationId": "get_export",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "zipFile": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "zipFile"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Required location for API Key.  See description for how to find your key.",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "startDate",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Required - Start Date in UNIX Milliseconds, YYYY-MM-DD or YYYY-DD-MM.  Inclusive."
+          },
+          {
+            "in": "query",
+            "name": "endDate",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Required - End Date in UNIX Milliseconds, YYYY-MM-DD or YYYY-DD-MM. Exclusive."
+          },
+          {
+            "in": "query",
+            "name": "botIds",
+            "schema": {
+              "type": "string",
+              "default": "1,2,3"
+            },
+            "required": true,
+            "description": "Comma-separated list of bot ids"
+          },
+          {
+            "in": "query",
+            "name": "promptNames",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of prompt names"
+          }
+        ]
+      }
+    }
+  },
+  "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+  }
+}

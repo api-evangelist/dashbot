@@ -1,0 +1,14 @@
+{
+  "provider": "dashbot",
+  "sources": [
+    "dashbot-export-api-openapi.yml"
+  ],
+  "outputs": [
+    "dashbot-export-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

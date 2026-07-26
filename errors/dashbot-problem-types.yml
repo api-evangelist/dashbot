@@ -1,0 +1,19 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/dashbot-export-openapi.json
+format: json
+notes: >-
+  Derived from the published Export API OpenAPI (GET /export). Error responses
+  return a plain JSON object with a `message` string (not RFC 9457
+  problem+json). Only the documented 403 error is present in the spec.
+envelope:
+  field: message
+  media_type: application/json
+problems:
+- status: 403
+  title: Forbidden
+  description: >-
+    Returned when the Authorization header is missing or the API key is invalid
+    for the requested bot IDs / date range.
+  schema: '{ message: string }'
+  source_operation: openapi/dashbot-export-openapi.json#get_export

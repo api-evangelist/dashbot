@@ -1,0 +1,31 @@
+generated: '2026-07-18'
+method: searched
+source: https://github.com/actionably (Dashbot / Dimension Labs GitHub org) + npm/PyPI/RubyGems registries
+packages:
+- language: javascript
+  registry: npm
+  name: dashbot
+  url: https://www.npmjs.com/package/dashbot
+  install: npm install dashbot
+  version: 12.1.0
+  repository: https://github.com/actionably/dashbot
+  description: Analytics for your bot (Dashbot Node.js SDK).
+  official: true
+- language: python
+  registry: pypi
+  name: dashbot
+  url: https://pypi.org/project/dashbot/
+  install: pip install dashbot
+  version: 0.0.22
+  repository: https://github.com/actionably/dashbotpy
+  description: Dashbot Python SDK.
+  official: true
+- language: ruby
+  registry: rubygems
+  name: dashbot
+  url: https://rubygems.org/gems/dashbot
+  install: gem install dashbot
+  version: 0.0.6
+  repository: https://github.com/actionably/dashbot_ruby_sdk
+  description: Dashbot Analytics SDK (Ruby).
+  official: true

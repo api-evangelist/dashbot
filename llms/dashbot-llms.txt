@@ -1,0 +1,108 @@
+# Dimension Labs Documentation
+
+> Documentation and guides around the Dimension Labs Product, API and our Integrations.
+
+## Guides
+- [Your Agent is Ready](https://docs.dimensionlabs.io/docs/dimension-product-guide.md): A new category of enterprise analytics
+- [Meet Your Agent](https://docs.dimensionlabs.io/docs/meet-your-agent.md): Learn what your Agent can answer, how it uses workspace data, and two ways to start your first conversation.
+- [Your First Session](https://docs.dimensionlabs.io/docs/your-first-session.md): Learn how to open your Agent, ask your first question, read the response, and recognize when your Agent needs more data.
+- [Ask vs Plan](https://docs.dimensionlabs.io/docs/ask-vs-plan.md): Learn when to use Ask for exploratory work and Plan for repeatable Agent deliverables.
+- [What makes us different?](https://docs.dimensionlabs.io/docs/what-is-dimension.md): Causal Intelligence for the Enterprise: understand why your business metrics move by integrating customer conversations into your structured data.
+- [What is the Meaning Layer?](https://docs.dimensionlabs.io/docs/what-is-the-meaning-layer.md): Learn how the Meaning Layer joins enriched language data with business metrics to make Causal Intelligence possible.
+- [What is AI Data Enrichment?](https://docs.dimensionlabs.io/docs/what-is-data-enrichment.md): Dimension Labs provides data enrichment capabilities that businesses use to enhance their understanding of conversational data and other sources of unstructured text.
+- [Dimensions Explained](https://docs.dimensionlabs.io/docs/copy-of-dimensions-explained.md): Discover how AI-powered dimensions revolutionize text analysis by transforming unstructured data into actionable business insights by classifying data using prompts.
+- [Standard Dimensions](https://docs.dimensionlabs.io/docs/copy-of-standard-enrichments.md): Explore Dimension Labs' comprehensive set of standard dimensions for analyzing textual data, including session-level and section-level analytics for conversational sources.
+- [List of Standard Dimensions](https://docs.dimensionlabs.io/docs/list-of-standard-dimensions.md): Full list of standard dimensions and their definitions.
+- [Custom Dimensions](https://docs.dimensionlabs.io/docs/custom-enrichments.md): Learn how custom enrichments help you extract meaningful insights from unstructured textual data using AI-powered analysis and contextual reasoning.
+- [Predicted Scores](https://docs.dimensionlabs.io/docs/predicted-scores.md): Predicted scoring in Dimension Labs represents a significant advancement in extracting meaningful insights from unstructured conversational data.
+- [Data Transformation Tools](https://docs.dimensionlabs.io/docs/what-is-data-transformation.md): Data maps and knowledge graphs apply automated structure grounded in context.
+- [Agent](https://docs.dimensionlabs.io/docs/your-agent.md): Use Your Agent to execute deep dives into your data.
+- [Context Engineering](https://docs.dimensionlabs.io/docs/context-engineering.md): Use context engineering to turn repeatable Agent work into durable instructions, reusable files, and consistent outputs.
+- [Analysis Plans](https://docs.dimensionlabs.io/docs/analysis-plans.md): Execute structured deep dives and repeatable research workflows.
+- [Agent Validation](https://docs.dimensionlabs.io/docs/validation-studies.md): You can rely on our Agent to deliver repeatable and recoverable results. We've done the research.
+- [Dark Database & Enrichment](https://docs.dimensionlabs.io/docs/introduction-to-custom-dimensions.md): View transcripts and create data enrichments across your data with custom dimensions.
+- [Custom Dimensions](https://docs.dimensionlabs.io/docs/custom-dimension-prompting.md): Custom Dimensions allow users to enrich their data using customzable analytic tasks.
+- [Backfill](https://docs.dimensionlabs.io/docs/backfill.md): Users may enrich historical data for either standard or custom dimensions using the backfill module.
+- [Data Mapping](https://docs.dimensionlabs.io/docs/data-mapping.md): Our advanced data mapping capability identifies themes organically in any unstructured dataset.
+- [Data Explorer](https://docs.dimensionlabs.io/docs/data-explorer.md): Data Explorer is a querying solution for reporting of your conversational data without any SQL or programming expertise.
+- [Introduction to Data Explorer](https://docs.dimensionlabs.io/docs/introduction-to-data-explorer.md): Data Explorer is a querying solution for reporting of your conversational data without any SQL or programming expertise. Uncover insights from Messages, Users, Sessions, and more. From saved Data Explorer queries, you can create custom dashboard cards that are available on any dashboard.
+- [Helpful Data Explorer Tips](https://docs.dimensionlabs.io/docs/helpful-data-explorer-tips.md): Use these tips to help you get more out of Data Explorer
+- [Data Explorer Terminology](https://docs.dimensionlabs.io/docs/data-explorer-terminology.md): Glossary of Data Explorer terms
+- [Dashboards](https://docs.dimensionlabs.io/docs/dashboards.md): Our fully customizable Dashboards provide a canvass for data visualizations and reporting.
+- [Introduction to Dashboards](https://docs.dimensionlabs.io/docs/introduction-to-dashboards.md): Whether you're fine-tuning overall trends, optimizing conversions, or diving deep into fall back insights, our Dashboards provide a centralized hub for all your data needs.
+- [Dashboard Card Configuration](https://docs.dimensionlabs.io/docs/dashboard-card-configuration.md)
+- [Helpful Dashboard Tips](https://docs.dimensionlabs.io/docs/dashboard-tips.md): Use these tips to help you get more out of Dashboards
+- [Dashboard Terminology](https://docs.dimensionlabs.io/docs/dashboard-visualization.md): Glossary of all Dashboard terms
+- [Data Slicer](https://docs.dimensionlabs.io/docs/data-slicer.md): Data Slicer is a revolutionary no-code data workspace designed to transform your conversational data into actionable intelligence. These insights can help inform new intents and features.  ###
+- [Introduction to Data Slicer](https://docs.dimensionlabs.io/docs/introduction-to-data-slicer.md): Data Slicer is a revolutionary no-code data workspace designed to transform your conversational data into actionable intelligence. These insights can help inform new intents and features.
+- [Data Slicer Configuration](https://docs.dimensionlabs.io/docs/data-slicer-user-guide.md): What if you had an assistant that could review every conversation with a customer and provide you with summaries and overall themes?
+- [Helpful Data Slicer Tips](https://docs.dimensionlabs.io/docs/helpful-data-slicer-tips.md): Use these tips to help you get more out of Data Slicer
+- [Flows](https://docs.dimensionlabs.io/docs/flows.md): Flows enable you to visualize the conversational journey. It is represented by a sankey diagram, funnel or KPI. Watch our **[overview video](https://www.loom.com/share/1aef1b2db7e54fe0bef6ffa601073cd8)** to learn more about flows and how to understand your customer’s journeys.
+- [Introduction to Flows](https://docs.dimensionlabs.io/docs/introduction-to-flows.md): Flows enable you to visualize the conversational journey. It is represented by a sankey diagram, funnel or KPI. Watch our **[overview video](https://www.loom.com/share/1aef1b2db7e54fe0bef6ffa601073cd8)** to learn more about flows and how to understand your customer’s journeys.
+- [Flows Configuration](https://docs.dimensionlabs.io/docs/configure-flows.md)
+- [Helpful Flows Tips](https://docs.dimensionlabs.io/docs/helpful-flows-tips.md): Use these tips to help you get more out of Flows
+- [Flows Terminology](https://docs.dimensionlabs.io/docs/flows-terminology.md): Glossary of Flows terms
+- [User Management](https://docs.dimensionlabs.io/docs/user-management.md)
+- [Troubleshoting](https://docs.dimensionlabs.io/docs/troubleshoting.md): Common errors and bug reporting.
+
+## API Reference
+- [API & Integrations Overview](https://docs.dimensionlabs.io/reference/using-the-integration-guides.md): Get started with our API and Integrations today!
+- [1-Click Integrations](https://docs.dimensionlabs.io/reference/1-click-integrations.md): What is a one click integration? How does it work? What data gets sent to Dimension?
+- [Uploading data from a file](https://docs.dimensionlabs.io/reference/uploading-data.md): If you already have local access to your data, feel free to upload it to Dimension to get started!
+- [PII Redaction Information](https://docs.dimensionlabs.io/reference/pii-redaction.md): Here you will learn a few ways you can redact PII from your data before you send it to Dimension Lab's platform
+- [Using PII redaction NPM libraries](https://docs.dimensionlabs.io/reference/using-pii-redaction-npm-libraries.md): Here you will learn a few ways you can redact PII from your data before you send it to Dimension
+- [FAQs](https://docs.dimensionlabs.io/reference/faqs-1.md)
+- [Generating a Dimension Labs API Key](https://docs.dimensionlabs.io/reference/generating-dashbot-api-key.md): Let's walk through how to generate your Dimension Labs keys in under 60 seconds!
+- [Retrieving your data](https://docs.dimensionlabs.io/reference/fetching-your-data.md): Retrieving data from your integration source
+- [Data Formatting](https://docs.dimensionlabs.io/reference/data-formatting.md)
+- [Setting Timestamps](https://docs.dimensionlabs.io/reference/setting-timestamps.md)
+- [Tracking Intents and Events](https://docs.dimensionlabs.io/reference/advanced-usage.md)
+- [Sending your data to Dimension](https://docs.dimensionlabs.io/reference/sending-data-to-dimension.md): How do I actually post my Data to Dimension? What endpoints should I use?
+- [REST API](https://docs.dimensionlabs.io/reference/rest-api.md): Integrate with Dimension using a REST integration
+- [Testing and Sending Data](https://docs.dimensionlabs.io/reference/connecting-with-the-universal-api.md)
+- [Creating a Live Integration](https://docs.dimensionlabs.io/reference/automating-api-interactions.md): Once you learn the best way to push data from your data source into Dimension, how do I automate it?
+- [Avaya Cloud](https://docs.dimensionlabs.io/reference/avaya-cloud.md): Avaya Cloud Office is a comprehensive unified communications platform designed to streamline business communications with advanced features such as voice, video, messaging, and collaboration tools.
+- [Intercom](https://docs.dimensionlabs.io/reference/intercom-integration.md): Intercom is a customer communication platform focusing on live chat, marketing, and support services. By analyzing chat transcripts and customer feedback, you can identify common customer issues, enhancing support strategy.
+- [LiveChat](https://docs.dimensionlabs.io/reference/livechat.md): LiveChat provides an online customer service software with live support, web analytics, and online marketing capabilities. The analysis of live chat transcripts and customer queries allows businesses to understand common customer issues, gauge satisfaction levels, and identify areas for service improvement.
+- [Slack](https://docs.dimensionlabs.io/reference/slack.md): Slack is a team collaboration platform. Analysis of messages, shared files, and communication patterns in you can reveal team dynamics, identify prevalent topics, and assess employee engagement
+- [Slack Advanced Usage](https://docs.dimensionlabs.io/reference/slack-advanced-usage.md)
+- [SMS](https://docs.dimensionlabs.io/reference/sms.md): SMS is a text messaging service component of most communication systems. Analysis of text message content can highlight customer inquiry patterns and response effectiveness.
+- [SMS Advanced Usage](https://docs.dimensionlabs.io/reference/advanced-usage-1.md)
+- [Twilio](https://docs.dimensionlabs.io/reference/twilio.md): Twilio provides tools for building SMS, voice, and messaging applications. Analyzing SMS content and call logs helps understand customer preferences and the effectiveness of communication strategies, enhancing personalized customer experiences and communication workflows.
+- [Ada](https://docs.dimensionlabs.io/reference/ada.md): Ada is an AI customer service platform for businesses to build, manage and improve their AI agents.
+- [Amazon Lex](https://docs.dimensionlabs.io/reference/amazon-lex.md): Amazon Lex builds conversational interfaces using voice and text. Processing conversation logs enhances understanding of user intents and improves natural language capabilities of applications.
+- [Botcopy](https://docs.dimensionlabs.io/reference/botcopy.md): Botcopy integrates chatbots with web interfaces. Analysis of chatbot interaction logs offers insights into user engagement, frequently asked questions, and chatbot performance.
+- [Capacity](https://docs.dimensionlabs.io/reference/capacity.md): Capacity.com is an AI-powered knowledge sharing platform designed to streamline information access and facilitate collaboration within organizations.
+- [Cognigy](https://docs.dimensionlabs.io/reference/cognigy.md): Cognigy is an advanced AI platform for building and deploying chatbots and virtual assistants with powerful analytics capabilities.
+- [Drift (Salesloft)](https://docs.dimensionlabs.io/reference/drift-integration.md): Drift specializes in conversational marketing and sales. Analyzing conversation logs helps understand customer needs, tailor marketing strategies, and enhance sales engagement.
+- [General Webchat](https://docs.dimensionlabs.io/reference/general-webchat.md): Webchat systems facilitate real-time customer-business communication. Analysis of chat logs reveals common customer inquiries and sentiment, informing customer service strategies and webchat design.
+- [Kore.ai](https://docs.dimensionlabs.io/reference/kore-ai.md): Kore.ai offers an AI-powered conversational platform that empowers enterprises to build and deploy intelligent virtual assistants for seamless customer interactions across various channels.
+- [Microsoft Bot Framework](https://docs.dimensionlabs.io/reference/microsoft-bot-framework.md): This framework allows building intelligent bots for user interactions. Analyzing bot conversations and user queries can provide insights into user needs, improving bot responsiveness and user engagement.
+- [Oracle Digital Assistant](https://docs.dimensionlabs.io/reference/oracle-digital-assistant.md): Oracle Digital Assistant enables businesses to create and deploy digital assistants to streamline customer communications across multiple channels.
+- [OpenAI Assistants API](https://docs.dimensionlabs.io/reference/openai.md): OpenAI is a leading organization driving advancements in chatbot technology, revolutionizing natural language processing capabilities and redefining how we interact with AI-powered systems.
+- [Rasa](https://docs.dimensionlabs.io/reference/rasa-documentation.md): Rasa is a tool for creating AI-powered chatbots. Analyzing chatbot interaction logs and implementation challenges can yield insights for optimizing chatbot functionalities and user experiences.
+- [Yellow.ai](https://docs.dimensionlabs.io/reference/yellow-ai.md): Yellow.ai is an AI-powered chatbot and virtual assistant platform that enables businesses to create intelligent conversational agents for superior customer interactions.
+- [Quiq](https://docs.dimensionlabs.io/reference/quiq.md): Quiq is a customer messaging platform that allows businesses to connect with their customers through SMS, messaging apps, web chat, and social media for support and engagement.
+- [ZenDesk](https://docs.dimensionlabs.io/reference/zen-desk.md): ZenDesk offers customer service solutions. Analyzing support ticket content and customer interactions can identify common issues and improve customer support efficiency.
+- [Salesforce Cloud](https://docs.dimensionlabs.io/reference/salesforce.md): Salesforce is a CRM platform. Analyzing customer interaction records and feedback provides insights into customer behavior, sales trends, and market opportunities.
+- [8x8](https://docs.dimensionlabs.io/reference/8x8.md): 8x8 is a cloud communications platform providing integrated voice, video, chat, and contact center solutions for businesses to connect and collaborate effectively.
+- [Amazon Connect](https://docs.dimensionlabs.io/reference/amazon-connect.md): Amazon Connect is a cloud-based contact center service that allows businesses to easily provide exceptional customer service at any scale.
+- [Genesys](https://docs.dimensionlabs.io/reference/genesys.md): Genesys offers customer experience and contact center solutions. Analyzing call transcripts and customer feedback can uncover insights into customer sentiment and satisfaction.
+- [Facebook Messenger](https://docs.dimensionlabs.io/reference/facebook-messenger.md): Facebook Messenger is a messaging platform. Analyzing message content and interaction patterns can inform customer service approaches and marketing strategies to enhance engagement.
+- [Facebook Messenger Advanced Usage](https://docs.dimensionlabs.io/reference/facebook-messenger-advanced-usage.md)
+- [Twitter Direct Messages](https://docs.dimensionlabs.io/reference/twitter.md): Twitter Direct Messages enable private user conversations. Analyzing these messages can provide insights into customer feedback and queries.
+- [Kik](https://docs.dimensionlabs.io/reference/kik.md): Kik is a messaging app for connecting users. Analyzing message content and user interactions can inform content strategies and user engagement approaches.
+- [Kik Advanced Usage](https://docs.dimensionlabs.io/reference/kik-advanced-usage.md)
+- [Amazon Alexa](https://docs.dimensionlabs.io/reference/amazon-alexa-integration.md): Integrating with Amazon Alexa enables voice interaction with customers. Analyzing voice interaction logs can enhance user request understanding and voice application responsiveness.
+- [Amazon Alexa Advanced Integrations](https://docs.dimensionlabs.io/reference/amazon-alexa-advanced-integrations.md)
+- [Google Dialogflow](https://docs.dimensionlabs.io/reference/google-dialogflow.md): Google Dialogflow is a platform for building conversational interfaces. Analyzing conversation logs improves intent recognition accuracy and provides insights into user behaviors and preferences.
+- [Google Dialogflow Advanced Usage](https://docs.dimensionlabs.io/reference/google-dialogflow-advanced-usage.md)
+- [Medallia](https://docs.dimensionlabs.io/reference/medallia.md): Medallia is a customer experience management software that captures experience data from multiple sources like reviews, social media, and direct customer feedback.
+- [SurveyMonkey](https://docs.dimensionlabs.io/reference/survey-monkey.md): SurveyMonkey is an online survey software. Analyzing open-ended survey responses uncovers trends in customer feedback, guiding business decisions and market research.
+- [Qualtrics](https://docs.dimensionlabs.io/reference/qualtrics.md): Qualtrics is a sophisticated experience management platform that specializes in survey creation and data analysis. By examining responses from customer satisfaction surveys, feedback forms, and market research surveys, Qualtrics can uncover key customer insights, preferences, and trends.
+- [QuestionPro](https://docs.dimensionlabs.io/reference/questionpro.md): QuestionPro is a tool for online survey software and insights solutions. Insights derived from open-ended survey responses and feedback ratings help businesses understand customer needs, employee satisfaction, and market trends, enabling data-driven decision-making to improve products and services.
+- [Index](https://docs.dimensionlabs.io/reference/get_new-endpoint.md): Fetches
+- [Export](https://docs.dimensionlabs.io/reference/export-1.md)
+
+## Pages
+- [Dashbot Product Guide](https://docs.dimensionlabs.io/product-documentation.md)

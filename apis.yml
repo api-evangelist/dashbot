@@ -1,8 +1,31 @@
 aid: dashbot
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/dashbot.png
 name: Dashbot
-description: 'Dashbot is a company surfaced as a portfolio company of bessemer-venture-partners and added
-  to the API Evangelist network as a stub for enrichment. Sector: ai-ml. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  Dashbot is a conversational-data analytics platform (now operating as Dimension
+  Labs) that ingests chatbot, voice-assistant, live-chat, call, survey and other
+  unstructured customer conversations and enriches them into structured
+  "dimensions" for causal intelligence and reporting. Data is sent in through a
+  Universal REST tracker and dozens of one-click integrations (Twilio, Slack,
+  Intercom, Zendesk, Salesforce, Amazon Lex/Connect, Google Dialogflow, Genesys,
+  Cognigy, Kore.ai, Rasa, and more), then explored through dashboards, data
+  explorer, flows and an analytics Agent. A REST Export API (api.dimensionlabs.io)
+  and first-party JavaScript, Python and Ruby SDKs let teams pull enriched data
+  back out programmatically. Dashbot was surfaced as a portfolio company of
+  bessemer-venture-partners; the company rebranded to Dimension Labs while the
+  API and SDKs retain the Dashbot name (api.dashbot.io still responds).
 url: https://raw.githubusercontent.com/api-evangelist/dashbot/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -12,11 +35,32 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
 - Ai Ml
-apis: []
+- Conversational Analytics
+- Chatbots
+- Voice Assistants
+- Customer Experience
+- Data Enrichment
+- Analytics
+- Contact Center
+apis:
+- aid: dashbot:dashbot-export-api
+  name: Dashbot Export API
+  description: The Export API from Dashbot — 1 operation(s) for export.
+  humanURL: https://docs.dimensionlabs.io/reference/using-the-integration-guides
+  baseURL: https://api.dimensionlabs.io
+  tags:
+  - Export
+  properties:
+  - type: OpenAPI
+    url: openapi/dashbot-export-api-openapi.yml
+  - type: Authentication
+    url: authentication/dashbot-authentication.yml
+  - type: ErrorCatalog
+    url: errors/dashbot-problem-types.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -24,4 +68,41 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://www.dashbot.io/
+  url: https://www.dimensionlabs.io/
+- type: DeveloperPortal
+  url: https://docs.dimensionlabs.io/docs/dimension-product-guide
+- type: Documentation
+  url: https://docs.dimensionlabs.io/docs/dimension-product-guide
+- type: APIReference
+  url: https://docs.dimensionlabs.io/reference/using-the-integration-guides
+- type: GettingStarted
+  url: https://docs.dimensionlabs.io/reference/generating-dashbot-api-key
+- type: Authentication
+  url: authentication/dashbot-authentication.yml
+- type: LLMsTxt
+  url: llms/dashbot-llms.txt
+- type: Packages
+  url: packages/dashbot-packages.yml
+- type: SDKs
+  url: packages/dashbot-packages.yml
+- type: ErrorCatalog
+  url: errors/dashbot-problem-types.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DomainSecurity
+  url: security/dashbot-domain-security.yml
+- type: GitHubOrganization
+  url: https://github.com/actionably
+- type: Blog
+  url: https://www.dimensionlabs.io/blog
+- type: Pricing
+  url: https://www.dimensionlabs.io/pricing
+- type: PrivacyPolicy
+  url: https://www.dimensionlabs.io/privacy-policy
+- type: Login
+  url: https://next.dimensionlabs.io/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

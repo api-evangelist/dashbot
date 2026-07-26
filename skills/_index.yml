@@ -1,0 +1,8 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/dashbot-export-openapi.json
+skills:
+- file: dashbot-export-enrichment-data.md
+  name: Export Dimension Labs enrichment data
+  api: openapi/dashbot-export-openapi.json
+  operations: [get_export]
