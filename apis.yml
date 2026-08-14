@@ -35,7 +35,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-18'
+modified: '2026-08-14'
 tags:
 - Company
 - Ai Ml
@@ -49,7 +49,12 @@ tags:
 apis:
 - aid: dashbot:dashbot-export-api
   name: Dashbot Export API
-  description: The Export API from Dashbot — 1 operation(s) for export.
+  description: >-
+    Read API for enriched conversational data. GET /export returns a zipFile
+    handle for all dimension data across a set of bot IDs over a date range,
+    optionally filtered to named prompts; GET /index is the entry point that
+    lists the endpoints available to the key. Authenticated with an API key in
+    the Authorization header. 2 operations.
   humanURL: https://docs.dimensionlabs.io/reference/using-the-integration-guides
   baseURL: https://api.dimensionlabs.io
   tags:
@@ -57,10 +62,66 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/dashbot-export-api-openapi.yml
+  - type: Overlay
+    url: overlays/dashbot-export-api-overlay.yaml
   - type: Authentication
     url: authentication/dashbot-authentication.yml
   - type: ErrorCatalog
     url: errors/dashbot-problem-types.yml
+  - type: DataModel
+    url: data-model/dashbot-data-model.yml
+  - type: Conventions
+    url: conventions/dashbot-conventions.yml
+  - type: RateLimits
+    url: rate-limits/dashbot-rate-limits.yml
+- aid: dashbot:dashbot-universal-tracker-api
+  name: Dashbot Universal Tracker API
+  description: >-
+    Write/ingest API for unstructured customer conversations. POST one message
+    object per call to /track (realtime, timestamp within 24 hours) or
+    /trackhistorical (older data), with platform, version, direction and the
+    integration source's apiKey supplied as query parameters. The message
+    format — text, userId, incoming, conversationId, sessionId and
+    dimensionlabs_timestamp plus optional intent/metadata — is documented in
+    prose; Dimension Labs publishes NO machine-readable spec for this surface.
+  humanURL: https://docs.dimensionlabs.io/reference/rest-api
+  baseURL: https://tracker.dimensionlabs.io
+  tags:
+  - Ingest
+  - Tracking
+  properties:
+  - type: Documentation
+    url: https://docs.dimensionlabs.io/reference/rest-api
+  - type: Authentication
+    url: authentication/dashbot-authentication.yml
+  - type: Conventions
+    url: conventions/dashbot-conventions.yml
+  - type: DataModel
+    url: data-model/dashbot-data-model.yml
+  - type: ErrorCatalog
+    url: errors/dashbot-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/dashbot-rate-limits.yml
+  x-no-spec: >-
+    No OpenAPI, AsyncAPI, GraphQL SDL or Postman collection is published for the
+    tracker. Probed 2026-08-14: /openapi.json, /openapi.yaml, /swagger.json,
+    /api-docs and /docs all 404 on tracker.dimensionlabs.io.
+- aid: dashbot:dashbot-mcp
+  name: Dimension Labs Documentation MCP
+  description: >-
+    Model Context Protocol endpoint served from the Dimension Labs
+    documentation host. Answers JSON-RPC 2.0; tools/list is authorization-gated
+    for anonymous clients, so the tool set is not publicly enumerable.
+  humanURL: https://docs.dimensionlabs.io/docs/dimension-product-guide
+  baseURL: https://docs.dimensionlabs.io/mcp
+  tags:
+  - MCP
+  - Documentation
+  properties:
+  - type: MCPServer
+    url: mcp/dashbot-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/dashbot-tool-crosswalk.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -91,18 +152,44 @@ common:
   url: skills/_index.yml
 - type: DomainSecurity
   url: security/dashbot-domain-security.yml
+- type: MCPServer
+  url: mcp/dashbot-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/dashbot-tool-crosswalk.yml
+- type: Conventions
+  url: conventions/dashbot-conventions.yml
+- type: DataModel
+  url: data-model/dashbot-data-model.yml
+- type: Lifecycle
+  url: lifecycle/dashbot-lifecycle.yml
+- type: Conformance
+  url: conformance/dashbot-conformance.yml
+- type: Compliance
+  url: https://www.dimensionlabs.io/pricing
+- type: Plans
+  url: plans/dashbot-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/dashbot-rate-limits.yml
+- type: Overlay
+  url: overlays/dashbot-export-api-overlay.yaml
 - type: GitHubOrganization
   url: https://github.com/actionably
 - type: Blog
   url: https://www.dimensionlabs.io/blog
 - type: Pricing
   url: https://www.dimensionlabs.io/pricing
+- type: TermsOfService
+  url: https://www.dimensionlabs.io/terms-of-service-policy
 - type: PrivacyPolicy
-  url: https://www.dimensionlabs.io/privacy-policy
+  url: https://www.dimensionlabs.io/privacy-policy-policy
+- type: SignUp
+  url: https://tally.so/r/pb5Zjb
 - type: Login
   url: https://next.dimensionlabs.io/
+- type: Support
+  url: https://docs.dimensionlabs.io/docs/troubleshoting
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-14'
+  status: enriched
+  artifacts_added: 13
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
