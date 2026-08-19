@@ -4,7 +4,7 @@ description: >-
   Pull enriched conversational-analytics data (dimensions) for one or more bots
   over a date range from the Dashbot / Dimension Labs Export API, handling the
   API-key header and the 403 auth failure.
-api: openapi/dashbot-export-openapi.json
+api: openapi/dashbot-export-api-openapi.yml
 operations: [get_export]
 ---
 

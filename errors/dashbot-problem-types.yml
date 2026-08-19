@@ -1,19 +1,75 @@
-generated: '2026-07-18'
-method: derived
-source: openapi/dashbot-export-openapi.json
+generated: '2026-08-14'
+method: searched
+source: >-
+  openapi/dashbot-export-api-openapi.yml (documented 4xx responses) plus
+  https://docs.dimensionlabs.io/docs/troubleshoting and
+  https://docs.dimensionlabs.io/reference/data-formatting for the
+  documented failure modes that never surface as an HTTP error.
 format: json
+rfc9457: false
 notes: >-
-  Derived from the published Export API OpenAPI (GET /export). Error responses
-  return a plain JSON object with a `message` string (not RFC 9457
-  problem+json). Only the documented 403 error is present in the spec.
+  Dimension Labs publishes an extremely thin error contract. Both Export API
+  operations document exactly one failure — 403 Forbidden — returning a plain
+  JSON object with a `message` string, not application/problem+json. The
+  Universal tracker endpoints document NO error responses at all; the reference
+  example simply checks `res.status === 200` and tells the reader to "check the
+  configs and possibly contact support". Several real failure modes are
+  documented in prose but produce no error at all, and those are recorded under
+  silent_failures below because they are what an agent will actually hit.
 envelope:
   field: message
   media_type: application/json
+  shape: '{ "message": string }'
 problems:
-- status: 403
-  title: Forbidden
-  description: >-
-    Returned when the Authorization header is missing or the API key is invalid
-    for the requested bot IDs / date range.
-  schema: '{ message: string }'
-  source_operation: openapi/dashbot-export-openapi.json#get_export
+  - status: 403
+    title: Forbidden
+    description: >-
+      Returned when the Authorization header is missing, or the API key is not
+      valid for the requested bot IDs / date range.
+    schema: '{ message: string }'
+    source_operation: openapi/dashbot-export-api-openapi.yml#get_export
+    remediation: >-
+      Regenerate or re-check the key in the app (Integrations > Add Source >
+      Show Integration Instructions) and confirm it is scoped to the bot IDs
+      being exported.
+  - status: 403
+    title: Forbidden
+    description: >-
+      Index/entry-point call rejected. The spec annotates the response schema as
+      "A message dictating what went wrong with this request".
+    schema: '{ message: string }'
+    source_operation: openapi/dashbot-export-api-openapi.yml#get_new-endpoint
+silent_failures:
+  - name: Seconds-based timestamp
+    trigger: dimensionlabs_timestamp sent in seconds instead of milliseconds.
+    behavior: >-
+      Accepted, then interpreted as a 1970 date. No error is returned; the
+      record lands outside every reporting window.
+    source: https://docs.dimensionlabs.io/reference/data-formatting
+  - name: Wrong field-name casing
+    trigger: 'USERID / userid / SESSIONID instead of userId / sessionId.'
+    behavior: Field names are case-sensitive and the mis-cased field is not honoured.
+    source: https://docs.dimensionlabs.io/reference/data-formatting
+  - name: Colon in a grouping id
+    trigger: 'conversationId or sessionId containing a colon (:).'
+    behavior: Not permitted; the docs instruct callers to use `-` or `_` instead.
+    source: https://docs.dimensionlabs.io/reference/data-formatting
+  - name: Missing conversationId
+    trigger: conversationId omitted on a multi-participant conversation.
+    behavior: >-
+      Sessions fragment at every change of userId — e.g. when a human agent
+      joins a live chat. No error; the data is simply grouped wrong.
+    source: https://docs.dimensionlabs.io/reference/data-formatting
+  - name: Stale timestamp on the realtime endpoint
+    trigger: A dimensionlabs_timestamp older than 24 hours posted to /track.
+    behavior: >-
+      The realtime endpoints require a timestamp within 24 hours; older data
+      belongs on /trackhistorical, and historical data is excluded from the
+      nightly enrichment run until manually backfilled in the platform.
+    source: https://docs.dimensionlabs.io/reference/sending-data-to-dimension
+support:
+  email: support@dimensionlabs.io
+  troubleshooting: https://docs.dimensionlabs.io/docs/troubleshoting
+  note: >-
+    No request-id or correlation header is returned by either surface, so a
+    failed call cannot be referenced to support by ID.

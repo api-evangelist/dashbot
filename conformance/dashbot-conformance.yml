@@ -1,0 +1,96 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://www.dimensionlabs.io/pricing (published certification badges and the
+  tier comparison table), https://www.dimensionlabs.io/terms-of-service-policy
+  (section 5.2 Security), https://www.dimensionlabs.io/ (homepage compliance
+  strip), plus openapi/dashbot-export-api-openapi.yml and live probes on
+  2026-08-14.
+description: >-
+  Standards and compliance posture for the Dashbot / Dimension Labs surfaces.
+  The security-program claims are published by the provider; the protocol
+  conformance is derived from the spec and from live probes.
+standards:
+  - id: openapi-3.0
+    conforms: true
+    evidence: openapi/dashbot-export-api-openapi.yml declares openapi 3.0.0 with 2 operations.
+  - id: mcp
+    conforms: true
+    evidence: >-
+      https://docs.dimensionlabs.io/mcp answers JSON-RPC 2.0 with MCP error code
+      -32001. Protocol conformance beyond the auth gate is not observable
+      anonymously.
+    note: authorization-gated
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No oauth2 securityScheme in the OpenAPI; no OAuth documentation; both
+      /.well-known/oauth-authorization-server and
+      /.well-known/oauth-protected-resource 404 on every host.
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration 404 on every host.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors return application/json with a bare `{ "message": string }`
+      envelope, not application/problem+json.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt 404 on every Dimension Labs host.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset/Deprecation header support is documented; no deprecation policy exists.
+  - id: rfc8615-well-known
+    conforms: false
+    evidence: No /.well-known/ document is served on any host (see well-known/dashbot-well-known.yml).
+  - id: a2a-agent-card
+    conforms: false
+    evidence: >-
+      /.well-known/agent-card.json and /.well-known/agent.json 404 on every
+      host. The 200s from www.dashbot.io are a Framer SPA catch-all serving HTML.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      Not applicable rather than failed — Dimension Labs consumes events, it does
+      not publish them. No webhooks, no streaming API, no event catalog appears
+      anywhere in the documentation index.
+  - id: pagination
+    conforms: false
+    evidence: Neither the tracker nor the Export API paginates.
+  - id: idempotency
+    conforms: false
+    evidence: No idempotency key, header, or replay semantics documented on either surface.
+  - id: json-schema
+    conforms: partial
+    evidence: >-
+      The published message format (six required fields plus optional metadata
+      objects) is documented as prose tables, not as a JSON Schema. Only the
+      Export API responses carry inline schemas.
+
+compliance_program:
+  published: true
+  source: https://www.dimensionlabs.io/pricing
+  certifications:
+    - {name: SOC 2 Type 1, status: claimed, evidence: 'pricing page badge "SOC2 Type 1 & 2"; tier table row "SOC 2 Type 1 & 2"'}
+    - {name: SOC 2 Type 2, status: claimed, evidence: 'pricing page badge "SOC2 Type 1 & 2"'}
+    - {name: ISO 27001, status: claimed, evidence: 'pricing page badge "SOC2 Type 1 & 2 · GDPR · ISO 27001"'}
+  regulatory_alignment:
+    - {name: GDPR, status: claimed, evidence: 'pricing page badge; Enterprise tier "HIPAA - GDPR - CCPA alignment"'}
+    - {name: CCPA, status: claimed, evidence: 'Enterprise tier feature list; homepage compliance strip'}
+    - {name: HIPAA, status: 'alignment only', evidence: 'Enterprise tier "HIPAA Alignment" row in the comparison table — alignment, not certification'}
+  security_practices:
+    - Encryption of Customer Data in transit and at rest (Terms of Service 5.2).
+    - SOC 2 controls maintained (Terms of Service 5.2).
+    - Regular vulnerability scanning and penetration testing (Terms of Service 5.2).
+    - Breach notification without undue delay (Terms of Service 5.2).
+    - Caller-side PII redaction supported via SDK callbacks and a first-party redaction library.
+  caveats: >-
+    NO independent attestation is published. There is no trust centre, no report
+    request flow, no auditor named, and no certificate number for any of the
+    claims above — they appear as badges on a pricing page and as a contractual
+    representation in the Terms of Service. Recorded as claimed, not verified.
+  no_trust_center: >-
+    Probed 2026-08-14: trust.dimensionlabs.io and security.dimensionlabs.io do
+    not resolve; /security, /trust, /compliance, /responsible-disclosure and
+    /dpa on www.dimensionlabs.io all return 404. There is no trust centre.

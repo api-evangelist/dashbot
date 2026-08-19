@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Export API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_export",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dimensionlabs.io/export",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Required - Start Date in UNIX Milliseconds, YYYY-MM-DD or YYYY-DD-MM.  Inclusive."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Required - End Date in UNIX Milliseconds, YYYY-MM-DD or YYYY-DD-MM. Exclusive."
+              },
+              {
+                "name": "botIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of bot ids"
+              },
+              {
+                "name": "promptNames",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of prompt names"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,59 @@
+generated: '2026-08-14'
+method: probed
+status: published
+source: https://docs.dimensionlabs.io/mcp
+description: >-
+  Dimension Labs serves a Model Context Protocol endpoint from its own
+  documentation host, https://docs.dimensionlabs.io/mcp. It is the MCP server
+  that ships with their ReadMe documentation hub (the response carries ReadMe's
+  own CORS allow-list — x-readme-conversation-id, x-readme-project-id — and the
+  hub identifies itself as readme-subdomain "dashbotio"). It answers JSON-RPC,
+  not HTML: both `initialize` and `tools/list` return a well-formed JSON-RPC
+  error object, which is what distinguishes a real MCP endpoint from a
+  single-page-app catch-all.
+deployment:
+  mode: remote
+  endpoint: https://docs.dimensionlabs.io/mcp
+  auth: unknown
+  verified: probed
+  note: >-
+    Remote only. Dimension Labs publishes no stdio/npx MCP package — no
+    @dimensionlabs/mcp or @dashbot/mcp exists on npm, and no MCP server appears
+    in the github.com/actionably org.
+server:
+  name: dimension-labs-docs
+  transport: http
+  url: https://docs.dimensionlabs.io/mcp
+  provider_platform: ReadMe
+  scope: documentation
+tools: []
+tools_note: >-
+  NOT ENUMERATED. tools/list is authorization-gated and returns
+  {"jsonrpc":"2.0","error":{"code":-32001,"message":"Authorization required"}}
+  to an anonymous client, so the real tool names and inputSchemas cannot be read
+  without credentials. No tool list is asserted here rather than guessed. The
+  endpoint publishes no OAuth metadata either: /.well-known/oauth-protected-
+  resource and /.well-known/oauth-authorization-server both 404 on the docs
+  host, so an agent cannot discover how to authorize from the protocol alone.
+x-evidence:
+  - fetched: '2026-08-14'
+    url: https://docs.dimensionlabs.io/mcp
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    content_type: application/json; charset=utf-8
+    response: '{"jsonrpc":"2.0","error":{"code":-32001,"message":"Authorization required"},"id":null}'
+  - fetched: '2026-08-14'
+    url: https://docs.dimensionlabs.io/mcp
+    method: POST
+    body: 'initialize (protocolVersion 2025-06-18)'
+    http_status: 401
+    response: '{"jsonrpc":"2.0","error":{"code":-32001,"message":"Authorization required"},"id":null}'
+  - fetched: '2026-08-14'
+    url: https://api.dimensionlabs.io/mcp
+    http_status: 404
+    note: No MCP endpoint on the Export API host.
+  - fetched: '2026-08-14'
+    url: https://mcp.dimensionlabs.io/mcp
+    http_status: 0
+    note: Host does not resolve.

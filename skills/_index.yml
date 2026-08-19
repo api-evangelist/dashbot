@@ -1,8 +1,26 @@
-generated: '2026-07-18'
+generated: '2026-08-14'
 method: generated
-source: openapi/dashbot-export-openapi.json
+source: >-
+  openapi/dashbot-export-api-openapi.yml (operationIds verified against the
+  spec) and the published Universal tracker reference at
+  https://docs.dimensionlabs.io/reference/rest-api. No provider-published
+  AGENTS.md or skill files exist — the github.com/actionably org and the
+  documentation index were both checked on 2026-08-14.
 skills:
-- file: dashbot-export-enrichment-data.md
-  name: Export Dimension Labs enrichment data
-  api: openapi/dashbot-export-openapi.json
-  operations: [get_export]
+  - file: dashbot-export-enrichment-data.md
+    name: Export Dimension Labs enrichment data
+    api: openapi/dashbot-export-api-openapi.yml
+    operations: [get_export]
+  - file: dashbot-discover-export-endpoints.md
+    name: Discover the Dimension Labs Export API surface
+    api: openapi/dashbot-export-api-openapi.yml
+    operations: [get_new-endpoint]
+  - file: dashbot-ingest-conversation-data.md
+    name: Ingest conversation data into Dimension Labs
+    api: https://docs.dimensionlabs.io/reference/rest-api
+    operations: [POST /track, POST /trackhistorical]
+    note: >-
+      The Universal tracker has no OpenAPI. This skill is grounded in the
+      provider's published REST reference pages, and its steps name the
+      documented endpoints and query parameters verbatim rather than
+      operationIds.

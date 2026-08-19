@@ -1,0 +1,82 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.dimensionlabs.io/reference/rest-api,
+  https://docs.dimensionlabs.io/reference/sending-data-to-dimension,
+  https://www.dimensionlabs.io/terms-of-service-policy,
+  https://docs.dimensionlabs.io/llms.txt, plus live probes for a changelog and
+  a status page on 2026-08-14.
+description: >-
+  Dimension Labs publishes almost no lifecycle contract. There is no changelog,
+  no deprecation policy, no Sunset/Deprecation header support, no numeric SLA,
+  and no status page. The one versioning mechanism that exists — the `v` token
+  on the tracker query string — is inconsistently documented.
+versioning:
+  scheme: query-string token (ingest) / none (read)
+  tracker:
+    mechanism: '`v` query parameter on tracker.dimensionlabs.io'
+    observed_values: ['10.1.1-rest', '11.1.0-rest']
+    note: >-
+      Both tokens appear across the current reference pages, sometimes on the
+      same page for the incoming vs outgoing endpoint, so callers cannot tell
+      which is current. No token is documented as deprecated.
+  export_api:
+    mechanism: none
+    current: 'info.version 1.0.0 in the OpenAPI'
+  docs: https://docs.dimensionlabs.io/reference/rest-api
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation or sunset policy is published, and no RFC 8594
+    Sunset/Deprecation headers are documented. The clearest live deprecation in
+    the product — the `dashbot` npm package superseded by `dimensionlabs`, and
+    the dashbot.io brand superseded by dimensionlabs.io — is announced nowhere
+    in the developer documentation. api.dashbot.io still resolves and answers.
+deprecated_operations: []
+brand_transition:
+  from: Dashbot (dashbot.io)
+  to: Dimension Labs, Inc. (dimensionlabs.io)
+  evidence:
+    - Terms of Service are entered into with "Dimension Labs, Inc.", last updated 2026-06-09.
+    - Docs, tracker and Export API all moved to *.dimensionlabs.io hosts.
+    - 'npm `dashbot` (last publish 2021-10-21) superseded by npm `dimensionlabs` (12.2.0, 2024-12-11).'
+    - The API key doc page still lives at the legacy slug /reference/generating-dashbot-api-key.
+  unretired_surfaces:
+    - https://api.dashbot.io (resolves; returns 404 for unknown paths)
+    - https://www.dashbot.io (resolves; Framer site)
+  note: >-
+    No migration guide, cutover date, or end-of-life notice for the dashbot.io
+    surfaces has been published.
+sla:
+  url: https://www.dimensionlabs.io/terms-of-service-policy
+  public_uptime_target: null
+  note: >-
+    The Terms of Service carry no availability commitment or credit regime. A
+    "Priority support SLA" is listed as a FEATURE of the Scale plan on the
+    pricing page, with no published numbers attached.
+status_page: null
+status_page_probe:
+  - {url: 'https://status.dimensionlabs.io', result: 'does not resolve'}
+  - {url: 'https://status.dashbot.io', result: 'does not resolve'}
+  - {url: 'https://dimensionlabs.statuspage.io', status: 200, result: 'redirects to the Atlassian Statuspage marketing site — NOT a Dimension Labs status page'}
+changelog: null
+changelog_probe:
+  - {url: 'https://docs.dimensionlabs.io/changelog', status: 404}
+  - {url: 'https://www.dimensionlabs.io/changelog', status: 404}
+  - {note: 'No changelog section appears in the published llms.txt documentation index.'}
+docs_freshness:
+  note: >-
+    ReadMe stamps each doc page with updatedAt. The developer reference is
+    actively maintained — data-formatting 2026-06-25, sending-data-to-dimension
+    2026-06-15, troubleshooting 2025-10-24 — so the absence of a changelog is a
+    publishing gap, not an abandoned docs site.
+data_retention:
+  note: >-
+    Per the Terms of Service, Customer Data and Results are deleted or returned
+    after termination in accordance with the DPA, subject to legally required
+    retention and routine backups. No numeric retention window is published.
+support:
+  email: support@dimensionlabs.io
+  troubleshooting: https://docs.dimensionlabs.io/docs/troubleshoting

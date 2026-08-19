@@ -1,0 +1,104 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Dashbot / Dimension Labs Export API
+  version: 1.0.0
+extends: openapi/dashbot-export-api-openapi.yml
+x-generated: '2026-08-14'
+x-method: generated
+x-source: >-
+  Enhancements derived from the provider's own published documentation
+  (docs.dimensionlabs.io) and from the artifacts in this repo. The harvested
+  spec in openapi/_original/ is never mutated; everything API Evangelist adds is
+  expressed here as Overlay actions.
+actions:
+  - target: $.info
+    update:
+      description: >-
+        Read API for enriched conversational data. Exports the Dimensions that
+        Dimension Labs (formerly Dashbot) extracts from ingested conversations,
+        for a set of bot IDs over a date range. Data is written in through the
+        separate Universal tracker on tracker.dimensionlabs.io; this API only
+        reads the enriched result back out.
+      contact:
+        name: Dimension Labs Support
+        email: support@dimensionlabs.io
+        url: https://docs.dimensionlabs.io/reference/using-the-integration-guides
+      termsOfService: https://www.dimensionlabs.io/terms-of-service-policy
+      x-apievangelist-provider: dashbot
+      x-apievangelist-brand-note: >-
+        Published under the Dashbot name; the operating company is Dimension
+        Labs, Inc. and the API host is api.dimensionlabs.io.
+
+  - target: $
+    update:
+      externalDocs:
+        description: Dimension Labs API & Integrations reference
+        url: https://docs.dimensionlabs.io/reference/using-the-integration-guides
+
+  - target: $.info
+    update:
+      x-apievangelist-artifacts:
+        authentication: authentication/dashbot-authentication.yml
+        conventions: conventions/dashbot-conventions.yml
+        data_model: data-model/dashbot-data-model.yml
+        errors: errors/dashbot-problem-types.yml
+        lifecycle: lifecycle/dashbot-lifecycle.yml
+        plans: plans/dashbot-plans-pricing.yml
+        rate_limits: rate-limits/dashbot-rate-limits.yml
+        conformance: conformance/dashbot-conformance.yml
+        mcp: mcp/dashbot-mcp.yml
+
+  - target: $.paths['/export'].get
+    update:
+      summary: Export enriched dimension data
+      description: >-
+        Fetches all dimension data for the bots whose IDs are queried, between
+        the given date range. promptNames is an optional filter that narrows the
+        export to the named prompts/dimensions. The 200 response carries a
+        single `zipFile` string — the URL/handle of the export archive — not the
+        data itself.
+      x-apievangelist-note: >-
+        The startDate/endDate semantics are contradictory in the provider's own
+        material: the OpenAPI parameter description marks endDate EXCLUSIVE
+        while the reference prose describes the range as inclusive. Callers
+        should verify empirically at the boundary.
+
+  - target: $.paths['/index'].get
+    update:
+      summary: Export API entry point
+      description: >-
+        Entry point for, and list of, the available endpoints on the Export API.
+        Returns a `_links` collection. Requires the same Authorization header
+        API key as every other operation.
+      x-apievangelist-note: >-
+        The provider's published description for this operation is still the
+        ReadMe scaffold text ("This is your first endpoint! Edit this page to
+        start documenting your API."), which is why the enhanced summary and
+        description are supplied here rather than trusted from the spec.
+
+  - target: $.components
+    update:
+      securitySchemes:
+        DimensionLabsApiKey:
+          type: apiKey
+          in: header
+          name: Authorization
+          description: >-
+            API key generated per integration source in the Dimension Labs app
+            (Integrations > Add Source > Show Integration Instructions). Sent as
+            the raw Authorization header value — no Bearer prefix is documented.
+      x-apievangelist-note: >-
+        The published spec models authentication as a required header PARAMETER
+        on each operation and declares no components.securitySchemes at all.
+        This action supplies the equivalent formal scheme so tooling can bind
+        credentials; it does not change how the API behaves.
+
+  - target: $.info
+    update:
+      x-apievangelist-gaps:
+        - No components.securitySchemes in the published spec (auth is a bare header parameter).
+        - No 401 / 429 / 5xx responses documented — only 403.
+        - No response examples in-spec.
+        - No rate limits, no RateLimit-* headers, no Retry-After documented.
+        - No idempotency contract on either surface.
+        - The write path (Universal tracker, tracker.dimensionlabs.io) has no OpenAPI at all.

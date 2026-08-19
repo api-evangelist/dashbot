@@ -1,0 +1,51 @@
+generated: '2026-08-14'
+method: derived
+source: >-
+  mcp/dashbot-mcp.yml (probed MCP endpoint) + openapi/dashbot-export-api-openapi.yml
+  (published Export API OpenAPI 3.0.0).
+description: >-
+  Binding between the Dimension Labs agent surface (MCP) and the machine-readable
+  REST core (OpenAPI). The two surfaces do NOT overlap here: the MCP endpoint is
+  the ReadMe documentation server that sits on docs.dimensionlabs.io, while the
+  OpenAPI describes the Export API on api.dimensionlabs.io. Nothing is mapped
+  because nothing can honestly be mapped — the MCP tool list is auth-gated and
+  therefore unknown, and the documentation server is not a projection of the
+  Export API's operations.
+surfaces:
+  openapi:
+    file: openapi/dashbot-export-api-openapi.yml
+    host: https://api.dimensionlabs.io
+    operations: 2
+    gated: false
+  mcp:
+    url: https://docs.dimensionlabs.io/mcp
+    gated: true
+    gate: 'JSON-RPC error -32001 "Authorization required" on tools/list'
+    scope: documentation (ReadMe docs MCP), not the Export API
+  graphql:
+    endpoint: null
+    note: Dimension Labs publishes no GraphQL surface.
+crosswalk: []
+mcp_only: []
+mcp_only_note: >-
+  Cannot be enumerated. tools/list requires authorization, so the tool names
+  exist but are not readable anonymously. Populating this list would mean
+  guessing at a provider's tool surface, which this pipeline does not do.
+rest_only:
+  - operation: get_export
+    path: GET /export
+    capability: bulk export of enriched dimension data for a set of bot IDs over a date range
+    note: No MCP tool is known to back this operation.
+  - operation: get_new-endpoint
+    path: GET /index
+    capability: Export API entry point / endpoint index (_links)
+    note: No MCP tool is known to back this operation.
+coverage:
+  tools_named: 0
+  tools_bound: 0
+  mcp_only: 0
+  rest_operations: 2
+  rest_operations_with_tool: 0
+  confidence: >-
+    Coverage is unmeasurable, not zero-by-measurement: the MCP side is gated.
+    Re-run with credentials to bind the two surfaces.

@@ -1,0 +1,77 @@
+generated: '2026-08-14'
+method: probed
+source: >-
+  Live GET probes of the /.well-known/ discovery surface on every host named in
+  apis.yml (baseURL, Website, DeveloperPortal, Login) and in the OpenAPI
+  servers[] block.
+note: >-
+  NOTHING FOUND. Every /.well-known/ path 404s on every Dimension Labs host.
+  www.dashbot.io is a Framer single-page site whose catch-all answers HTTP 200
+  with the same HTML shell for EVERY path, including paths that cannot exist —
+  those 200s are recorded below as `html_shell: true` and are NOT documents. No
+  WellKnown or SecurityTxt pointer is emitted in apis.yml, because no host
+  actually serves a well-known document.
+hosts:
+  - host: api.dimensionlabs.io
+    note: Export API host. Unknown paths return 404 {"message":"Not Found"} (API Gateway).
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: tracker.dimensionlabs.io
+    note: Universal tracker ingest host.
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: docs.dimensionlabs.io
+    note: ReadMe-hosted documentation. /llms.txt IS served here (200) and is captured in llms/.
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/oauth-protected-resource/mcp, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /llms.txt, status: 200, file: ../llms/dashbot-llms.txt}
+  - host: www.dimensionlabs.io
+    note: Framer marketing site. Unknown paths return 404 "Not found".
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: www.dashbot.io
+    note: >-
+      Legacy Dashbot brand domain, also Framer. SPA catch-all: EVERY path
+      returns 200 with the site HTML shell. Treated as a miss on all paths.
+    documents:
+      - {path: /.well-known/security.txt, status: 200, html_shell: true, document: false}
+      - {path: /.well-known/openid-configuration, status: 200, html_shell: true, document: false}
+      - {path: /.well-known/oauth-authorization-server, status: 200, html_shell: true, document: false}
+      - {path: /.well-known/api-catalog, status: 200, html_shell: true, document: false}
+      - {path: /.well-known/ai-plugin.json, status: 200, html_shell: true, document: false}
+      - {path: /.well-known/agent-card.json, status: 200, html_shell: true, document: false}
+      - {path: /.well-known/agent.json, status: 200, html_shell: true, document: false}
+summary:
+  documents_found: 0
+  security_txt: false
+  openid_configuration: false
+  oauth_authorization_server: false
+  api_catalog: false
+  agent_card: false
+  false_positive_200s: 7

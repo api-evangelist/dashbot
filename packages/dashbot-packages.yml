@@ -1,31 +1,89 @@
-generated: '2026-07-18'
+generated: '2026-08-14'
 method: searched
-source: https://github.com/actionably (Dashbot / Dimension Labs GitHub org) + npm/PyPI/RubyGems registries
+source: >-
+  https://github.com/actionably (Dashbot / Dimension Labs GitHub org) +
+  registry.npmjs.org, pypi.org and rubygems.org metadata endpoints, read
+  2026-08-14. Version and publish dates below come from those registry APIs,
+  not from the docs.
+note: >-
+  DECAY SIGNAL. Every first-party client library predates the product it wraps.
+  The rebranded npm package `dimensionlabs` (12.2.0) last published 2024-12-11;
+  the legacy `dashbot` npm package last published 2021-10-21; the Python SDK
+  2023-09-08; the Ruby gem 2018-06-05. Meanwhile the Universal tracker
+  documentation is dated 2026-06 and the ingest contract advertises
+  v=11.1.0-rest. The SDKs are usable but none has shipped since the Dimension
+  Labs rebrand completed.
 packages:
-- language: javascript
-  registry: npm
-  name: dashbot
-  url: https://www.npmjs.com/package/dashbot
-  install: npm install dashbot
-  version: 12.1.0
-  repository: https://github.com/actionably/dashbot
-  description: Analytics for your bot (Dashbot Node.js SDK).
-  official: true
-- language: python
-  registry: pypi
-  name: dashbot
-  url: https://pypi.org/project/dashbot/
-  install: pip install dashbot
-  version: 0.0.22
-  repository: https://github.com/actionably/dashbotpy
-  description: Dashbot Python SDK.
-  official: true
-- language: ruby
-  registry: rubygems
-  name: dashbot
-  url: https://rubygems.org/gems/dashbot
-  install: gem install dashbot
-  version: 0.0.6
-  repository: https://github.com/actionably/dashbot_ruby_sdk
-  description: Dashbot Analytics SDK (Ruby).
-  official: true
+  - language: javascript
+    registry: npm
+    name: dimensionlabs
+    url: https://www.npmjs.com/package/dimensionlabs
+    install: npm install --save dimensionlabs
+    version: 12.2.0
+    published: '2024-12-11'
+    repository: https://github.com/actionably/dimensionlabs
+    description: >-
+      Dimension Labs Node.js SDK — the rebranded successor to the `dashbot` npm
+      package. Wraps the per-platform tracker calls (facebook, generic,
+      universal, ...) and supports redactAsync / redactObjectAsync callbacks for
+      PII redaction before send.
+    docs: https://docs.dimensionlabs.io/reference/using-pii-redaction-npm-libraries
+    official: true
+  - language: javascript
+    registry: npm
+    name: dashbot
+    url: https://www.npmjs.com/package/dashbot
+    install: npm install dashbot
+    version: 12.1.0
+    published: '2021-10-21'
+    repository: https://github.com/actionably/dashbot
+    description: Analytics for your bot (legacy Dashbot Node.js SDK, superseded by `dimensionlabs`).
+    official: true
+    status: superseded
+    superseded_by: dimensionlabs
+  - language: python
+    registry: pypi
+    name: dashbot
+    url: https://pypi.org/project/dashbot/
+    install: pip install dashbot
+    version: 0.0.22
+    published: '2023-09-08'
+    repository: https://github.com/actionably/dashbotpy
+    description: Dashbot Python SDK.
+    official: true
+  - language: ruby
+    registry: rubygems
+    name: dashbot
+    url: https://rubygems.org/gems/dashbot
+    install: gem install dashbot
+    version: 0.0.6
+    published: '2018-06-05'
+    repository: https://github.com/actionably/dashbot_ruby_sdk
+    description: Dashbot Analytics SDK (Ruby).
+    official: true
+  - language: python
+    registry: github
+    name: pii-redaction-lib
+    url: https://github.com/actionably/pii-redaction-lib
+    install: null
+    version: null
+    published: '2026-04-21'
+    repository: https://github.com/actionably/pii-redaction-lib
+    description: >-
+      First-party PII scrubbing library (NLP + regex detection patterns) used to
+      redact data before sending it to Dimension Labs. Source-only — it is not
+      published to PyPI, so there is no registry metadata endpoint to read a
+      version from; `published` is the last push date on the GitHub repo.
+    official: true
+    registry_note: >-
+      No package registry. Consumers install from source, which means they
+      cannot pin or diff a released version.
+registries_checked:
+  - {registry: npm, found: [dimensionlabs, dashbot]}
+  - {registry: pypi, found: [dashbot], missing: [dimensionlabs, dashbotpy]}
+  - {registry: rubygems, found: [dashbot], missing: [dimensionlabs]}
+  - {registry: packagist, found: []}
+  - {registry: crates.io, found: [], note: 'registry returned 403 to an unauthenticated probe'}
+  - {registry: nuget, found: []}
+  - {registry: maven-central, found: []}
+  - {registry: pkg.go.dev, found: []}

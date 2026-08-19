@@ -1,11 +1,18 @@
-generated: '2026-07-18'
+generated: '2026-08-14'
 method: searched
-source: https://docs.dimensionlabs.io/reference/generating-dashbot-api-key + openapi/dashbot-export-openapi.json
+source: >-
+  https://docs.dimensionlabs.io/reference/generating-dashbot-api-key,
+  https://docs.dimensionlabs.io/reference/rest-api,
+  https://docs.dimensionlabs.io/reference/sending-data-to-dimension, plus
+  openapi/dashbot-export-api-openapi.yml (both operations declare the
+  Authorization header parameter).
 docs: https://docs.dimensionlabs.io/reference/generating-dashbot-api-key
 summary:
   types: [apiKey]
   api_key_in: [header, query]
   oauth2_flows: []
+  openid_connect: false
+  mutual_tls: false
 schemes:
 - name: AuthorizationHeader
   type: apiKey
@@ -13,16 +20,45 @@ schemes:
   parameter: Authorization
   description: >-
     API key passed in the Authorization header on the Export API
-    (GET https://api.dimensionlabs.io/export). Keys are generated per
-    integration/source in the Dimension Labs app (Integrations > Add Source >
-    Show Integration Instructions).
-  sources: [openapi/dashbot-export-openapi.json]
+    (GET https://api.dimensionlabs.io/export and GET
+    https://api.dimensionlabs.io/index). The OpenAPI models it as a required
+    header PARAMETER rather than a securityScheme, so no formal
+    components.securitySchemes block exists in the published spec. No Bearer or
+    other prefix is documented — the raw key is the header value.
+  operations: [get_export, get_new-endpoint]
+  sources: [openapi/dashbot-export-api-openapi.yml]
 - name: TrackerApiKey
   type: apiKey
   in: query
   parameter: apiKey
   description: >-
-    API key supplied with realtime ingest calls to the Universal tracker
-    endpoint (https://tracker.dimensionlabs.io/track?platform=universal). Each
-    integration source has its own key generated in the Dimension Labs app.
+    API key supplied as a QUERY parameter on every Universal tracker ingest call
+    — https://tracker.dimensionlabs.io/track and /trackhistorical, e.g.
+    ?platform=universal&v=11.1.0-rest&type=incoming&apiKey=API_KEY_HERE. Each
+    integration source has its own key. No header alternative is documented.
+  risk_note: >-
+    A credential in the query string is written to proxy, CDN and server access
+    logs and to browser history. Dimension Labs documents no header-based
+    alternative for the ingest path.
   sources: [https://docs.dimensionlabs.io/reference/rest-api]
+key_provisioning:
+  location: Dimension Labs app — Integrations > Add Source > Show Integration Instructions
+  scope: one key per integration source
+  rotation: not documented
+  expiry: not documented
+  docs: https://docs.dimensionlabs.io/reference/generating-dashbot-api-key
+mcp_authentication:
+  endpoint: https://docs.dimensionlabs.io/mcp
+  scheme: unknown
+  note: >-
+    The MCP endpoint rejects anonymous calls with JSON-RPC error -32001
+    "Authorization required" but publishes no OAuth metadata
+    (/.well-known/oauth-protected-resource and
+    /.well-known/oauth-authorization-server both 404), so the authorization
+    method an agent should use is not discoverable.
+not_supported:
+  - oauth2
+  - openIdConnect
+  - mutualTLS
+  - http basic
+  - http bearer

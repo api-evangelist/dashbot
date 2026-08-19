@@ -1,0 +1,56 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: Dashbot / Dimension Labs
+providerId: dashbot
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.dimensionlabs.io/reference/rest-api,
+  https://docs.dimensionlabs.io/reference/sending-data-to-dimension,
+  https://docs.dimensionlabs.io/reference/automating-api-interactions,
+  https://docs.dimensionlabs.io/reference/export-1,
+  https://www.dimensionlabs.io/pricing — every page in the developer reference
+  was read for published limits on 2026-08-14.
+description: >-
+  Dimension Labs publishes NO rate limits. Neither the Universal tracker ingest
+  endpoints nor the Export API document a requests-per-second/minute ceiling, a
+  burst allowance, a 429 response, or any RateLimit-* / Retry-After response
+  header. What the provider does publish are PLAN QUOTAS measured in records
+  enriched per month (see plans/dashbot-plans-pricing.yml) and one temporal
+  constraint on ingest, both recorded below. An agent calling this API has no
+  runtime throttling signal to read.
+limit_count: 0
+limits: []
+headers:
+  rate_limit_headers: none documented
+  retry_after: not documented
+  request_id: not documented
+responseCodes:
+  throttled: not documented
+  documented_errors: [403]
+constraints:
+  - name: Realtime ingest freshness window
+    scope: per-request
+    endpoint: https://tracker.dimensionlabs.io/track
+    rule: >-
+      Data posted to the realtime tracker must carry a dimensionlabs_timestamp
+      within 24 hours of the time of sending. Anything older must go to the
+      historical endpoint (/trackhistorical), and historical data is excluded
+      from the nightly enrichment run until it is manually backfilled.
+    source: https://docs.dimensionlabs.io/reference/sending-data-to-dimension
+  - name: Recommended send cadence
+    scope: guidance
+    rule: >-
+      Dimension Labs recommends posting either in real time as interactions
+      occur, or rolled up on a 15-minute schedule (their own AWS Lambda +
+      EventBridge example runs every 15 minutes). This is advice, not an
+      enforced limit.
+    source: https://docs.dimensionlabs.io/reference/automating-api-interactions
+quotas:
+  metric: records enriched per month
+  note: >-
+    Volume is governed commercially rather than by throttling — 1,000 (Explore)
+    / 5,000 (Discover) / 25,000 (Prove) / 100,000 (Scale) / unlimited
+    (Enterprise) records per month, with per-record overage billing rather than
+    a hard stop. See plans/dashbot-plans-pricing.yml.
+  source: https://www.dimensionlabs.io/pricing

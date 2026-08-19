@@ -1,0 +1,111 @@
+generated: '2026-08-14'
+method: searched
+source: https://www.dimensionlabs.io/pricing
+description: >-
+  Dimension Labs prices on RECORDS ENRICHED PER MONTH, where one record is one
+  discrete customer interaction (a support ticket, a call transcript, a chat
+  session, a survey response, an email thread, a review) regardless of length.
+  Five published tiers plus documented overage rates. API access is a tier
+  feature, not a separate SKU.
+currency: USD
+billing_periods: [monthly, annual]
+annual_discount: >-
+  Annual plans are billed upfront for the full year at 2 months free (~17% off):
+  Discover $9,990/yr, Prove $29,990/yr, Scale $69,990/yr.
+metric:
+  unit: record
+  definition: >-
+    One discrete customer interaction — a support ticket, call transcript, chat
+    session, survey response, email thread or review — counted once regardless
+    of length or format.
+plan_count: 5
+plans:
+  - name: Explore
+    price: 0
+    currency: USD
+    period: month
+    quota: 1000 records/month
+    overage: none
+    signup: self-serve, no credit card required
+    includes:
+      - 1 data source connected
+      - AI Agent - single source Q&A
+      - Pre-built Dimensions library
+      - Export enriched Dimensions to CSV
+      - Email support (community tier support)
+    api_access: false
+  - name: Discover
+    price: 999
+    price_annual: 9990
+    currency: USD
+    period: month
+    quota: 5000 records/month
+    overage: $0.15 per additional record
+    data_sources: 1
+    includes:
+      - Unlimited Intelligence Reports
+      - Custom Dimensions
+      - Week 4 deliverable guarantee
+      - Standard MSA - 1 page
+      - Email support
+    api_access: false
+  - name: Prove
+    price: 2999
+    price_annual: 29990
+    currency: USD
+    period: month
+    quota: 25000 records/month
+    overage: $0.10 per additional record
+    data_sources: 3 (the Causal Join)
+    most_popular: true
+    includes:
+      - Everything in Discover
+      - The Causal Join - up to 3 sources
+      - Snowflake / Databricks / BigQuery export
+      - Statistically proven causal findings with confidence intervals
+      - Full audit trail + versioned Dimensions
+      - Email + chat support
+    api_access: true
+  - name: Scale
+    price: 6999
+    price_annual: 69990
+    currency: USD
+    period: month
+    quota: 100000 records/month
+    overage: $0.06 per additional record
+    data_sources: unlimited
+    includes:
+      - Everything in Prove
+      - Unlimited data sources
+      - Priority support SLA
+      - Subgroup causal analysis
+      - Dedicated onboarding engineer
+    api_access: true
+  - name: Enterprise
+    price: null
+    price_note: Custom — starting at $150,000/year
+    currency: USD
+    period: year
+    quota: unlimited records
+    overage: negotiated ($0.04 per record reference rate published in the comparison table)
+    includes:
+      - Everything in Scale
+      - Dedicated Customer Success Manager
+      - Custom Dimension methodology
+      - On-premise deployment option
+      - HIPAA / GDPR / CCPA alignment
+    api_access: true
+    contact: https://www.dimensionlabs.io/book-demo
+overage_policy: >-
+  On Discover, Prove and Scale, processing continues past the monthly record
+  limit — Dimension Labs does not stop data from running; additional records are
+  billed at the tier's per-record overage rate.
+professional_services:
+  - name: Paid POC engagement
+    price_range: $15,000 - $25,000
+    note: Offered against signed success criteria where ACV warrants it.
+compliance_claimed_on_pricing_page:
+  - SOC 2 Type 1
+  - SOC 2 Type 2
+  - GDPR
+  - ISO 27001

@@ -1,0 +1,158 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.dimensionlabs.io/reference/data-formatting (the published message
+  schema, field-by-field), https://docs.dimensionlabs.io/reference/advanced-usage
+  (intents and events), https://docs.dimensionlabs.io/reference/faqs-1,
+  https://docs.dimensionlabs.io/docs/list-of-standard-dimensions, plus
+  openapi/dashbot-export-api-openapi.yml for the export side.
+docs: https://docs.dimensionlabs.io/reference/data-formatting
+notation: >-
+  relationships use has_one / has_many / belongs_to with the reference field
+  name; direction is from the entity that owns the reference. Dimension Labs
+  uses CALLER-SUPPLIED string identifiers throughout — there are no
+  provider-issued id prefixes, which is the defining property of this data
+  model: the customer owns the key space.
+description: >-
+  The Dimension Labs core is a single ingested object — the Message — carrying
+  caller-supplied grouping keys. Everything else is either a container the keys
+  imply (Conversation, Session, User), optional metadata attached to a message
+  (Intent, Event, rich content), or a derived artifact the platform produces
+  from a message (Dimension, Predicted Score). The Export API reads the derived
+  layer back out.
+
+entities:
+  - name: Message
+    id_field: null
+    domain: ingest
+    description: >-
+      One unit of unstructured content — a chat turn, a call transcript
+      segment, a review, a survey answer, an email. The atomic write of the
+      whole platform. Six required fields: text, userId, incoming,
+      conversationId, sessionId, dimensionlabs_timestamp.
+  - name: Conversation
+    id_field: conversationId
+    domain: ingest
+    description: >-
+      Groups every message in a conversation across all participants. Caller
+      supplied. Without it, sessions fragment whenever userId changes — e.g.
+      when a human agent joins a live chat. Cannot contain a colon.
+  - name: Session
+    id_field: sessionId
+    domain: ingest
+    description: >-
+      A single interaction. Overrides the default 15-minute inactivity timeout
+      and links sessions that cross a day boundary. Cannot contain a colon.
+  - name: User
+    id_field: userId
+    domain: ingest
+    description: >-
+      The message sender. For bot conversations use the END USER's id on both
+      incoming and outgoing messages, not the bot's. For multi-participant
+      chats each participant carries their own id.
+  - name: Source
+    id_field: null
+    domain: configuration
+    description: >-
+      An integration source configured in the app (Integrations > Add Source).
+      Each source has its own API key, and a `platform` token used on the
+      tracker query string (universal, generic, facebook, ...).
+  - name: Bot
+    id_field: botIds
+    domain: configuration
+    description: >-
+      The legacy Dashbot unit of account, still the required selector on the
+      Export API (`botIds` is a comma-separated required parameter). One bot
+      corresponds to one tracked data source.
+  - name: Intent
+    id_field: null
+    domain: enrichment-input
+    description: >-
+      Optional NLP metadata attached to a message — name (e.g. TRACK_ORDER),
+      optional confidence 0.0-1.0, and optional inputs[] slot/entity pairs.
+      A universal `NotHandled` intent is documented for fallbacks.
+  - name: Event
+    id_field: null
+    domain: enrichment-input
+    description: >-
+      A standalone tracked occurrence posted with type=event on the tracker
+      rather than as a message.
+  - name: PlatformMetadata
+    id_field: null
+    domain: enrichment-input
+    description: >-
+      platformJson — the general-purpose metadata container (channel, CSAT/NPS,
+      experience rating, arbitrary context). Required for the Agentic workflow
+      when ingesting structured metadata.
+  - name: UserAttributes
+    id_field: null
+    domain: enrichment-input
+    description: >-
+      platformUserJson — attributes describing the person: firstName, lastName,
+      locale, timezone, gender, customerTier, abTestGroup.
+  - name: RichContent
+    id_field: null
+    domain: enrichment-input
+    description: >-
+      images[] {url}, buttons[] {id,label,value}, and postback {buttonClick:{buttonId}}.
+  - name: Dimension
+    id_field: promptNames
+    domain: enrichment-output
+    description: >-
+      The per-record structured field the platform extracts from a message —
+      standard (library) or custom (prompt-defined). Named dimensions are the
+      filter on the Export API's optional promptNames parameter. The Terms of
+      Service define Dimensions as "the per-record, structured data fields that
+      the Services extract from Customer Data".
+  - name: PredictedScore
+    id_field: null
+    domain: enrichment-output
+    description: >-
+      A model-inferred score (e.g. an inferred experience rating) produced from
+      unstructured text. Sentiment is scored on a -5..5 scale at word, message
+      and transcript level.
+  - name: Export
+    id_field: null
+    domain: retrieval
+    description: >-
+      The Export API result — a JSON object with a single `zipFile` string
+      pointing at the archive of enriched dimension data for the requested bot
+      IDs and date range.
+
+relationships:
+  - {from: Conversation, to: Message, kind: has_many, via: conversationId}
+  - {from: Session, to: Message, kind: has_many, via: sessionId}
+  - {from: User, to: Message, kind: has_many, via: userId}
+  - {from: Message, to: Conversation, kind: belongs_to, via: conversationId}
+  - {from: Message, to: Session, kind: belongs_to, via: sessionId}
+  - {from: Message, to: User, kind: belongs_to, via: userId}
+  - {from: Message, to: Intent, kind: has_one, via: intent}
+  - {from: Message, to: PlatformMetadata, kind: has_one, via: platformJson}
+  - {from: Message, to: UserAttributes, kind: has_one, via: platformUserJson}
+  - {from: Message, to: RichContent, kind: has_many, via: images/buttons/postback}
+  - {from: Message, to: Dimension, kind: has_many, via: enrichment}
+  - {from: Message, to: PredictedScore, kind: has_many, via: enrichment}
+  - {from: Source, to: Message, kind: has_many, via: apiKey}
+  - {from: Bot, to: Message, kind: has_many, via: botIds}
+  - {from: Export, to: Bot, kind: belongs_to, via: botIds}
+  - {from: Export, to: Dimension, kind: has_many, via: promptNames}
+  - {from: Conversation, to: User, kind: has_many, via: userId}
+
+required_fields:
+  - {field: text, type: string, note: text of the message}
+  - {field: userId, type: string, note: id of the sender}
+  - {field: incoming, type: boolean, note: 'true = from the customer/end user'}
+  - {field: conversationId, type: string, note: groups a conversation across participants}
+  - {field: sessionId, type: string, note: session boundary control}
+  - {field: dimensionlabs_timestamp, type: number, note: UNIX MILLISECONDS}
+
+notes:
+  - >-
+    There are no provider-issued identifiers anywhere in this model. Every key
+    (userId, conversationId, sessionId, botIds) is supplied by the customer,
+    which makes ID hygiene a caller responsibility and makes the colon
+    restriction on conversationId/sessionId a real integration hazard.
+  - >-
+    The write path (tracker) and the read path (Export API) do not share
+    vocabulary: you write `conversationId`/`sessionId`, you read by `botIds`
+    and `promptNames`.

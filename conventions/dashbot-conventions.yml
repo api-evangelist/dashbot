@@ -1,0 +1,173 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.dimensionlabs.io/reference/rest-api,
+  https://docs.dimensionlabs.io/reference/data-formatting,
+  https://docs.dimensionlabs.io/reference/sending-data-to-dimension,
+  https://docs.dimensionlabs.io/reference/setting-timestamps,
+  https://docs.dimensionlabs.io/reference/generating-dashbot-api-key,
+  https://docs.dimensionlabs.io/reference/advanced-usage, plus
+  openapi/dashbot-export-api-openapi.yml.
+description: >-
+  Cross-cutting request/response semantics for the two Dimension Labs surfaces —
+  the Universal tracker (write/ingest, tracker.dimensionlabs.io) and the Export
+  API (read/bulk, api.dimensionlabs.io). They do not share conventions: the
+  tracker authenticates with an apiKey QUERY parameter and versions itself in
+  the query string, while the Export API authenticates with an Authorization
+  HEADER and carries no version at all.
+
+surfaces:
+  - name: Universal tracker (ingest)
+    base_url: https://tracker.dimensionlabs.io
+    style: REST over HTTPS, JSON request bodies, one message object per POST
+    endpoints:
+      - POST /track            # realtime — timestamp must be within 24h
+      - POST /trackhistorical  # historical — outside the 24h window
+  - name: Export API (read)
+    base_url: https://api.dimensionlabs.io
+    style: REST over HTTPS, JSON responses
+    endpoints:
+      - GET /index    # operationId get_new-endpoint
+      - GET /export   # operationId get_export
+
+authentication:
+  tracker:
+    scheme: apiKey in the query string (`apiKey=`)
+    example: https://tracker.dimensionlabs.io/track?platform=universal&v=11.1.0-rest&type=incoming&apiKey=API_KEY_HERE
+    caution: >-
+      A key carried in the query string is logged by proxies, CDNs and browser
+      history. Dimension Labs documents no header alternative for the tracker.
+  export_api:
+    scheme: apiKey in the Authorization request header (raw key, no Bearer prefix documented)
+  key_provisioning: >-
+    Keys are generated per integration source in the app —
+    Integrations > Add Source > Show Integration Instructions.
+  docs: https://docs.dimensionlabs.io/reference/generating-dashbot-api-key
+  detail: authentication/dashbot-authentication.yml
+
+idempotency:
+  supported: false
+  mechanism: null
+  note: >-
+    NO idempotency contract. Dimension Labs documents no Idempotency-Key header,
+    no dedupe key, and no replay semantics on either tracker endpoint, and the
+    Export API OpenAPI declares no idempotency parameter. Re-POSTing the same
+    message is not documented as safe; the only client-side handles on identity
+    are the caller-supplied `conversationId`, `sessionId` and
+    `dimensionlabs_timestamp` fields, which are grouping keys, not idempotency
+    keys.
+
+pagination:
+  supported: false
+  note: >-
+    Neither surface paginates. The Export API returns a single `zipFile` string
+    per call and is bounded by the startDate/endDate/botIds query parameters
+    rather than by pages or cursors.
+
+request_shape:
+  tracker:
+    query_parameters:
+      platform: >-
+        The integration source — `universal` for the generic REST integration,
+        or a named platform (`generic`, `facebook`, ...) for a 1-click
+        integration.
+      v: SDK/protocol version string, e.g. `11.1.0-rest` (see versioning below).
+      type: incoming | outgoing | event
+      apiKey: the integration source's API key.
+    headers:
+      Content-Type: application/json
+    body: one message object (see the data model)
+  export_api:
+    query_parameters:
+      startDate: UNIX milliseconds, YYYY-MM-DD or YYYY-DD-MM — inclusive.
+      endDate: same formats — EXCLUSIVE (the OpenAPI parameter description says exclusive; the prose page says inclusive — a documented contradiction, not resolved here).
+      botIds: comma-separated list of bot IDs (required).
+      promptNames: comma-separated list of prompt names — optional filter.
+
+direction_semantics:
+  rule: >-
+    `incoming: true` is always content originating OUTSIDE the enterprise — the
+    customer, end user, reviewer or survey respondent. `incoming: false` is the
+    bot, system or human agent. This holds for non-conversational sources too:
+    reviews and news articles are incoming; survey QUESTIONS are outgoing and
+    survey RESPONSES are incoming. Direction also selects the endpoint
+    (`type=incoming` vs `type=outgoing`).
+  source: https://docs.dimensionlabs.io/reference/sending-data-to-dimension
+
+field_conventions:
+  case_sensitivity: >-
+    Field NAMES are case-sensitive: `userId` and `sessionId` are accepted,
+    `USERID`/`userid`/`SESSIONID` are not. `dimensionlabs_timestamp` treats
+    `dimensionlabs` as one word. Field VALUES may be capitalized freely
+    (`TRACK_ORDER`).
+  reserved_characters: >-
+    `conversationId` and `sessionId` must not contain a colon (`:`); use `-` or
+    `_` when composing an ID from multiple values.
+  timestamps: >-
+    `dimensionlabs_timestamp` is UNIX time in MILLISECONDS. A seconds-based
+    value is silently interpreted as a 1970 date — a real, unflagged failure
+    mode. The realtime endpoints require a value within 24 hours of send; file
+    uploads are exempt because they go straight to the historical path.
+  metadata:
+    platformJson: >-
+      General-purpose catch-all for any record metadata (channel, CSAT/NPS
+      score, experience rating, arbitrary context). Preferred location for
+      everything beyond the six required fields. Visible in transcripts;
+      reporting on it requires the Enterprise plan; required when ingesting
+      structured metadata for the Agentic workflow.
+    platformUserJson: >-
+      Attributes of the person — firstName, lastName, locale, timezone, gender,
+      customerTier, abTestGroup. Some 1-click integrations (Intercom/Fin)
+      populate it automatically.
+
+field_expansion:
+  supported: false
+
+versioning:
+  tracker:
+    scheme: query-string version token
+    mechanism: the `v` query parameter, e.g. `v=11.1.0-rest`
+    observed_values: ['10.1.1-rest', '11.1.0-rest']
+    note: >-
+      The docs use 10.1.1-rest and 11.1.0-rest interchangeably across pages,
+      including on the same page, so the token appears to be advisory rather
+      than a routing key. No deprecation of older tokens is announced.
+  export_api:
+    scheme: none
+    note: >-
+      No version segment in the path, no version header, no version parameter.
+      The OpenAPI declares info.version 1.0.0 and that is the only version
+      marker.
+  detail: lifecycle/dashbot-lifecycle.yml
+
+request_tracing:
+  request_id_header: none documented
+  note: >-
+    Neither surface documents a correlation/request-id response header, so a
+    failed call cannot be handed to support by ID.
+
+error_envelope:
+  media_type: application/json
+  shape: '{ "message": string }'
+  rfc9457: false
+  documented_statuses: [403]
+  detail: errors/dashbot-problem-types.yml
+
+rate_limit_signaling:
+  headers: none documented
+  status_on_exhaustion: not documented
+  detail: rate-limits/dashbot-rate-limits.yml
+
+privacy:
+  pii_redaction: >-
+    Dimension Labs expects the CALLER to redact PII before send. The
+    `dimensionlabs` npm SDK accepts `redactAsync(text)` and
+    `redactObjectAsync(obj)` callbacks so a redaction library can be wired in
+    centrally; `redactAsync` runs first and its output is passed to
+    `redactObjectAsync`. Dimension Labs also publishes a first-party
+    pii-redaction-lib and documents the redact-pii npm library.
+  docs: https://docs.dimensionlabs.io/reference/pii-redaction
+
+support:
+  email: support@dimensionlabs.io
+  troubleshooting: https://docs.dimensionlabs.io/docs/troubleshoting
