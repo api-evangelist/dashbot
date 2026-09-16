@@ -65,11 +65,10 @@ apis:
 - aid: dashbot:dashbot-export-api
   name: Dashbot Export API
   description: >-
-    Read API for enriched conversational data. GET /export returns a zipFile
-    handle for all dimension data across a set of bot IDs over a date range,
-    optionally filtered to named prompts; GET /index is the entry point that
-    lists the endpoints available to the key. Authenticated with an API key in
-    the Authorization header. 2 operations.
+    Read API for enriched conversational data. GET /export returns a zipFile handle for all dimension
+    data across a set of bot IDs over a date range, optionally filtered to named prompts; GET /index is
+    the entry point that lists the endpoints available to the key. Authenticated with an API key in the
+    Authorization header. 2 operations.
   humanURL: https://docs.dimensionlabs.io/reference/using-the-integration-guides
   baseURL: https://api.dimensionlabs.io
   tags:
@@ -92,13 +91,11 @@ apis:
 - aid: dashbot:dashbot-universal-tracker-api
   name: Dashbot Universal Tracker API
   description: >-
-    Write/ingest API for unstructured customer conversations. POST one message
-    object per call to /track (realtime, timestamp within 24 hours) or
-    /trackhistorical (older data), with platform, version, direction and the
-    integration source's apiKey supplied as query parameters. The message
-    format — text, userId, incoming, conversationId, sessionId and
-    dimensionlabs_timestamp plus optional intent/metadata — is documented in
-    prose; Dimension Labs publishes NO machine-readable spec for this surface.
+    Write/ingest API for unstructured customer conversations. POST one message object per call to /track
+    (realtime, timestamp within 24 hours) or /trackhistorical (older data), with platform, version, direction
+    and the integration source's apiKey supplied as query parameters. The message format — text, userId,
+    incoming, conversationId, sessionId and dimensionlabs_timestamp plus optional intent/metadata — is
+    documented in prose; Dimension Labs publishes NO machine-readable spec for this surface.
   humanURL: https://docs.dimensionlabs.io/reference/rest-api
   baseURL: https://tracker.dimensionlabs.io
   tags:
@@ -118,15 +115,13 @@ apis:
   - type: RateLimits
     url: rate-limits/dashbot-rate-limits.yml
   x-no-spec: >-
-    No OpenAPI, AsyncAPI, GraphQL SDL or Postman collection is published for the
-    tracker. Probed 2026-08-14: /openapi.json, /openapi.yaml, /swagger.json,
-    /api-docs and /docs all 404 on tracker.dimensionlabs.io.
+    No OpenAPI, AsyncAPI, GraphQL SDL or Postman collection is published for the tracker. Probed 2026-08-14:
+    /openapi.json, /openapi.yaml, /swagger.json, /api-docs and /docs all 404 on tracker.dimensionlabs.io.
 - aid: dashbot:dashbot-mcp
   name: Dimension Labs Documentation MCP
   description: >-
-    Model Context Protocol endpoint served from the Dimension Labs
-    documentation host. Answers JSON-RPC 2.0; tools/list is authorization-gated
-    for anonymous clients, so the tool set is not publicly enumerable.
+    Model Context Protocol endpoint served from the Dimension Labs documentation host. Answers JSON-RPC
+    2.0; tools/list is authorization-gated for anonymous clients, so the tool set is not publicly enumerable.
   humanURL: https://docs.dimensionlabs.io/docs/dimension-product-guide
   baseURL: https://docs.dimensionlabs.io/mcp
   tags:
@@ -137,6 +132,16 @@ apis:
     url: mcp/dashbot-mcp.yml
   - type: ToolCrosswalk
     url: mcp/dashbot-tool-crosswalk.yml
+- aid: dashbot:dashbot-index-api
+  name: Dashbot Index API
+  description: The Index API from Dashbot — 1 operation(s) for index.
+  humanURL: https://docs.dimensionlabs.io/reference/using-the-integration-guides
+  baseURL: https://api.dimensionlabs.io
+  tags:
+  - Index
+  properties:
+  - type: OpenAPI
+    url: openapi/dashbot-index-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
