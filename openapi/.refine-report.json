@@ -1,14 +1,28 @@
 {
   "provider": "dashbot",
   "sources": [
-    "dashbot-export-api-openapi.yml"
+    "_original/dashbot-export-index-openapi.json",
+    "_original/dashbot-export-openapi.json"
   ],
   "outputs": [
+    "dashbot-index-api-openapi.yml",
     "dashbot-export-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "dashbot-export-index-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "dashbot-export-index-openapi.json: tagged paths GET /index -> Index",
+    "dashbot-export-index-openapi.json: declared missing tag: Index",
+    "dashbot-export-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "dashbot-export-openapi.json: tagged paths GET /export -> Export",
+    "dashbot-export-openapi.json: declared missing tag: Export",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "dashbot-export-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dashbot-index-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
